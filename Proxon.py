@@ -4,7 +4,7 @@
 import requests # get
 import time # time
 import os # clear screen
-import urllib3 # disable stupid fucking warnings
+import urllib3 # disable warnings
 from bs4 import BeautifulSoup # scraping
 from colorama import Fore, init # color
 from concurrent.futures import ThreadPoolExecutor, as_completed # multithreading
@@ -61,24 +61,24 @@ def scrape_from_github_http():
         # Request the proxy list from the URL
         response = requests.get(url, timeout=5)
         response.raise_for_status()  # Check if the request was successful
-        proxies_list = response.text.splitlines()  # Split by line to get each proxy
+        proxies_list = response.text.splitlines()  # Split by line for each proxy.
 
         index = 0
         for proxy in proxies_list:
             proxies_list[index] = proxy.split(":")[0]+":"+proxy.split(":")[1]
             index+=1
 
-        # Check if proxies.txt exists in the tool directory
+        # Check if proxies.txt exists in current directory
         proxies_file_path = "proxies.txt"
         if os.path.exists(proxies_file_path):
             # Read the existing proxies.txt file
             with open(proxies_file_path, "r") as file:
                 existing_proxies = file.read().splitlines()
 
-            # Remove duplicates by combining and using a set
+            # Remove duplicates
             combined_proxies = set(existing_proxies + proxies_list)
 
-            # Write the combined proxies back into the file
+            # Rewrite to file
             with open(proxies_file_path, "w") as file:
                 for proxy in combined_proxies:
                     file.write(f"{proxy}\n")
@@ -87,7 +87,7 @@ def scrape_from_github_http():
             time.sleep(5)
 
         else:
-            # If proxies.txt doesn't exist, create a new one and write the fetched proxies
+            # Create proxies.txt if it doesn't exist
             with open(proxies_file_path, "w") as file:
                 for proxy in proxies_list:
                     file.write(f"{proxy}\n")
@@ -97,7 +97,7 @@ def scrape_from_github_http():
         print(f"{Fore.RED}Error fetching proxies: {e}")
 
 def scrape_from_github_https():
-    url = "https://github.com/zloi-user/hideip.me/raw/refs/heads/master/https.txt"
+    url = "https://github.com/zloi-user/hideip.me/raw/refs/heads/master/https.txt" # shoutout
 
     try:
 
@@ -110,19 +110,18 @@ def scrape_from_github_https():
         for proxy in proxies_list:
             proxies_list[index] = proxy.split(":")[0]+":"+proxy.split(":")[1]
             index+=1
-            #print(proxy)
 
-        # Check if proxies.txt exists in the tool directory
+        # Check if proxies.txt exists
         proxies_file_path = "proxies.txt"
         if os.path.exists(proxies_file_path):
             # Read the existing proxies.txt file
             with open(proxies_file_path, "r") as file:
                 existing_proxies = file.read().splitlines()
 
-            # Remove duplicates by combining and using a set
+            # Remove duplicates
             combined_proxies = set(existing_proxies + proxies_list)
 
-            # Write the combined proxies back into the file
+            # Write the combined proxies back
             with open(proxies_file_path, "w") as file:
                 for proxy in combined_proxies:
                     file.write(f"{proxy}\n")
@@ -131,7 +130,7 @@ def scrape_from_github_https():
             time.sleep(5)
 
         else:
-            # If proxies.txt doesn't exist, create a new one and write the fetched proxies
+            # If proxies.txt doesn't exist, create a new one and write
             with open(proxies_file_path, "w") as file:
                 for proxy in proxies_list:
                     file.write(f"{proxy}\n")
@@ -151,7 +150,7 @@ def api_proxyscrape_com():
         response.raise_for_status()  # Check if the request was successful
         proxies_list = response.text.splitlines()  # Split by line to get each proxy
 
-        # Check if proxies.txt exists in the tool directory
+        # Check if proxies.txt exists
         proxies_file_path = "proxies.txt"
         if os.path.exists(proxies_file_path):
             # Read the existing proxies.txt file
