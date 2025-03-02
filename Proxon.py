@@ -1,3 +1,6 @@
+# TODO
+# IMPROVE CHECKING ALGORITHM
+
 import requests # get
 import time # time
 import os # clear screen
